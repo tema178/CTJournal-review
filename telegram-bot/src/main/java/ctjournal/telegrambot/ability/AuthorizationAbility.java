@@ -23,7 +23,7 @@ public class AuthorizationAbility implements AbilityExtension {
     public Ability start() {
         return Ability.builder()
                 .name("authorize")
-                .info("Создать новую тренировку")
+                .info("Авторизоваться")
                 .locality(ALL)
                 .privacy(PUBLIC)
                 .action(this::authorize)

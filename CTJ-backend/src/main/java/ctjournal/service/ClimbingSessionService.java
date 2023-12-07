@@ -1,15 +1,11 @@
 package ctjournal.service;
 
-import ctjournal.domain.ClimbingSession;
-
-import java.util.List;
+import ctjournal.dto.ClimbingSessionDto;
 
 public interface ClimbingSessionService {
-    ClimbingSession save(ClimbingSession session);
+    ClimbingSessionDto save(ClimbingSessionDto session);
 
-    List<ClimbingSession> getAll();
-
-    ClimbingSession getById(long id);
+    ClimbingSessionDto getById(long id);
 
     void deleteById(long id);
 }

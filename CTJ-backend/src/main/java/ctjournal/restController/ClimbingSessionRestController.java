@@ -1,6 +1,6 @@
 package ctjournal.restController;
 
-import ctjournal.domain.ClimbingSession;
+import ctjournal.dto.ClimbingSessionDto;
 import ctjournal.service.ClimbingSessionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,19 +17,14 @@ public class ClimbingSessionRestController {
     private final ClimbingSessionService service;
 
     @PostMapping("/api/session/climbing")
-    public ClimbingSession save(@RequestBody ClimbingSession session) {
+    public ClimbingSessionDto save(@RequestBody ClimbingSessionDto session) {
         return service.save(session);
     }
 
     @GetMapping("/api/session/climbing/{id}")
-    public ClimbingSession findById(@PathVariable long id) {
+    public ClimbingSessionDto findById(@PathVariable long id) {
         return service.getById(id);
     }
-
-//    @GetMapping("/api/ClimbingSession/session/{exerciseSessionId}") //TODO users ClimbingSessions
-//    public List<ClimbingSession> findAll(long exerciseSessionId) {
-//        return service.getAll(exerciseSessionId);
-//    }
 
     @DeleteMapping("/api/session/climbing/{id}")
     public void delete(@PathVariable long id) {

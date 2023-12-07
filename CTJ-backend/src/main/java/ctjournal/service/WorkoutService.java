@@ -1,15 +1,16 @@
 package ctjournal.service;
 
-import ctjournal.domain.Workout;
+import ctjournal.dto.WorkoutDto;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
 public interface WorkoutService {
-    Workout save(Workout book);
+    WorkoutDto save(Authentication authentication, WorkoutDto book);
 
-    List<Workout> getAll();
+    List<WorkoutDto> getAll();
 
-    Workout getById(long id);
+    WorkoutDto getById(long id);
 
     void deleteById(long id);
 }

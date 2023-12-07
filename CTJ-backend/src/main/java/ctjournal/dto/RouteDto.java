@@ -41,10 +41,18 @@ public class RouteDto {
 
     private long climbingSession;
 
-    public static RouteDto domainToDto(Route route) {
-        return new RouteDto(route.getId(), route.getName(), route.getType(), route.getGrade(),
-                route.getSendStyle(), route.getAttempts(), route.getAttemptsForRedPoint(), route.getRating(),
-                route.getDifficultyLevel(), route.getComment(), route.getClimbingSession().getId());
+    public RouteDto(Route route) {
+        id = route.getId();
+        name = route.getName();
+        type = route.getType();
+        grade = route.getGrade();
+        sendStyle = route.getSendStyle();
+        attempts = route.getAttempts();
+        attemptsForRedPoint = route.getAttemptsForRedPoint();
+        rating = route.getRating();
+        difficultyLevel = route.getDifficultyLevel();
+        comment = route.getComment();
+        climbingSession = route.getClimbingSession().getId();
     }
 
     public Route toDomain() {
@@ -53,9 +61,15 @@ public class RouteDto {
                 this.getDifficultyLevel(), this.getComment(), new ClimbingSession(this.getClimbingSession()));
     }
 
+    public static List<Route> toDomain(@NonNull List<RouteDto> routeDtoList) {
+        var routes = new ArrayList<Route>();
+        routeDtoList.forEach(dto -> routes.add(dto.toDomain()));
+        return routes;
+    }
+
     public static List<RouteDto> domainToDto(@NonNull List<Route> routes) {
         var routeDtos = new ArrayList<RouteDto>();
-        routes.forEach(route -> routeDtos.add(domainToDto(route)));
+        routes.forEach(route -> routeDtos.add(new RouteDto(route)));
         return routeDtos;
     }
 

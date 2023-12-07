@@ -15,12 +15,12 @@ public class RouteServiceImpl implements RouteService {
 
     @Override
     public RouteDto save(RouteDto route) {
-        return RouteDto.domainToDto(repository.save(route.toDomain()));
+        return new RouteDto((repository.save(route.toDomain())));
     }
 
     @Override
     public RouteDto findById(long id) {
-        return RouteDto.domainToDto(repository.findById(id).orElseThrow(NullPointerException::new));
+        return new RouteDto((repository.findById(id).orElseThrow(NullPointerException::new)));
     }
 
     @Override

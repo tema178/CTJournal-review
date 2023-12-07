@@ -33,4 +33,8 @@ public class Location {
     private User user;
 
     private boolean favourite;
+
+    public Location(long id){
+        this.id = id;
+    }
 }

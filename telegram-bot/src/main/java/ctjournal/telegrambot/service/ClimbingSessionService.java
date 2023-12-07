@@ -1,10 +1,10 @@
 package ctjournal.telegrambot.service;
 
-import ctjournal.telegrambot.domain.ClimbingSession;
 import ctjournal.telegrambot.domain.WorkoutState;
+import ctjournal.telegrambot.dto.ClimbingSessionDto;
 
 public interface ClimbingSessionService {
-    ClimbingSession create(WorkoutState workout, String id);
+    ClimbingSessionDto create(WorkoutState workout, String id);
 
-    ClimbingSession update(ClimbingSession session, String id);
+    ClimbingSessionDto update(ClimbingSessionDto session, String id);
 }

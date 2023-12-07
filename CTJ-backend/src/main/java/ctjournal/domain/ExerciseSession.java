@@ -6,8 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,8 +33,11 @@ public class ExerciseSession {
     @OneToMany(targetEntity = AbstractExercise.class, fetch = EAGER, mappedBy = "exerciseSession")
     private List<AbstractExercise> exercises;
 
-    @ManyToOne(targetEntity = Workout.class, fetch = FetchType.LAZY)
+    @OneToOne(targetEntity = Workout.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "workout_id")
     private Workout workout;
 
+    public ExerciseSession (long id) {
+        this.id = id;
+    }
 }

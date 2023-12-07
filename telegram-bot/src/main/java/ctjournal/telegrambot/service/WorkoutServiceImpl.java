@@ -2,10 +2,8 @@ package ctjournal.telegrambot.service;
 
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ctjournal.telegrambot.domain.ClimbingSession;
-import ctjournal.telegrambot.domain.Location;
-import ctjournal.telegrambot.dto.WorkoutDto;
 import ctjournal.telegrambot.domain.WorkoutState;
+import ctjournal.telegrambot.dto.WorkoutDto;
 import ctjournal.telegrambot.repository.TokensHashRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
@@ -18,8 +16,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
@@ -66,14 +62,14 @@ public class WorkoutServiceImpl implements WorkoutService {
     @Override
     public WorkoutDto updateLocation(WorkoutState workoutState, String id) {
         WorkoutDto workoutDto = findById(workoutState.getId(), id);
-        workoutDto.setLocation(new Location(workoutState.getId()));
+        workoutDto.setLocation(workoutState.getId());
         return updateWorkout(workoutDto, id);
     }
 
     @Override
     public WorkoutDto updateClimbingSession(WorkoutState workoutState, String id) {
         WorkoutDto workoutDto = findById(workoutState.getId(), id);
-        workoutDto.setClimbingSession(new ClimbingSession(workoutState.getClimbingSession()));
+        workoutDto.setClimbingSession(workoutState.getClimbingSession());
         return updateWorkout(workoutDto, id);
     }
 }

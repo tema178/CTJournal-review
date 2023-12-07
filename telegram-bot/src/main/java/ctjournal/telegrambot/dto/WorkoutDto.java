@@ -1,16 +1,12 @@
 package ctjournal.telegrambot.dto;
 
-import ctjournal.telegrambot.domain.ClimbingSession;
 import ctjournal.telegrambot.domain.DifficultyLevel;
-import ctjournal.telegrambot.domain.ExerciseSession;
-import ctjournal.telegrambot.domain.Location;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,17 +22,19 @@ public class WorkoutDto {
 
     private long endTime;
 
-    private Location location;
+    private long location;
 
-    private List<ExerciseSession> warmUp;
+    private long warmUp;
 
-    private ClimbingSession climbingSession;
+    private long climbingSession;
 
-    private List<ExerciseSession> coolDown;
+    private long coolDown;
 
     private DifficultyLevel difficultyLevel;
 
     private String comment;
+
+    private String user;
 
     public WorkoutDto(Date date, long startTime) {
         this.date = date;

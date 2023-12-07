@@ -2,11 +2,11 @@ package ctjournal.service;
 
 import ctjournal.domain.ClimbingSession;
 import ctjournal.domain.Workout;
+import ctjournal.dto.ClimbingSessionDto;
 import ctjournal.repository.ClimbingSessionRepository;
+import ctjournal.repository.WorkoutRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -14,23 +14,19 @@ public class ClimbingSessionServiceImpl implements ClimbingSessionService {
 
     private final ClimbingSessionRepository repository;
 
-    private final WorkoutService workoutService;
+    private final WorkoutRepository workoutRepository;
 
     @Override
-    public ClimbingSession save(ClimbingSession session) {
-        Workout workout = workoutService.getById(session.getWorkout().getId()); //TODO detached entity passed to persist
-        session.setWorkout(workout);
-        return repository.save(session);
+    public ClimbingSessionDto save(ClimbingSessionDto session) {
+        ClimbingSession sessionDomain = session.toDomain();
+        Workout workout = workoutRepository.findById(session.getWorkout()).orElseThrow(NullPointerException::new);
+        sessionDomain.setWorkout(workout);
+        return new ClimbingSessionDto(repository.save(sessionDomain));
     }
 
     @Override
-    public List<ClimbingSession> getAll() {
-        return repository.findAll();
-    }
-
-    @Override
-    public ClimbingSession getById(long id) {
-        return repository.findById(id).orElseThrow(NullPointerException::new);
+    public ClimbingSessionDto getById(long id) {
+        return new ClimbingSessionDto(repository.findById(id).orElseThrow(NullPointerException::new));
     }
 
     @Override

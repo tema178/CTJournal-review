@@ -1,8 +1,9 @@
 package ctjournal.service;
 
-import ctjournal.domain.Workout;
+import ctjournal.dto.WorkoutDto;
 import ctjournal.repository.WorkoutRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,18 +16,19 @@ public class WorkoutServiceImpl implements WorkoutService {
 
 
     @Override
-    public Workout save(Workout workout) {
-        return repository.save(workout);
+    public WorkoutDto save(Authentication authentication, WorkoutDto workoutDto) {
+        workoutDto.setUser(authentication.getName());
+        return WorkoutDto.toDto(repository.save(workoutDto.toDomain()));
     }
 
     @Override
-    public List<Workout> getAll() {
-        return repository.findAll();
+    public List<WorkoutDto> getAll() {
+        return WorkoutDto.toDto(repository.findAll());
     }
 
     @Override
-    public Workout getById(long id) {
-        return repository.findById(id).orElseThrow(NullPointerException::new);
+    public WorkoutDto getById(long id) {
+        return WorkoutDto.toDto(repository.findById(id).orElseThrow(NullPointerException::new));
     }
 
     @Override

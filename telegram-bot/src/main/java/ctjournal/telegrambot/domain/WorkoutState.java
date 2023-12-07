@@ -34,6 +34,8 @@ public class WorkoutState implements Serializable {
 
     private String comment;
 
+    private String user;
+
     public WorkoutState(Date date, long startTime) {
         this.date = date;
         this.startTime = startTime;

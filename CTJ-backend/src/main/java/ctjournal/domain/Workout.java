@@ -6,7 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -15,9 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
-import java.util.List;
 
-import static jakarta.persistence.CascadeType.ALL;
 import static jakarta.persistence.FetchType.EAGER;
 import static jakarta.persistence.FetchType.LAZY;
 
@@ -43,18 +40,26 @@ public class Workout {
     @JoinColumn(name = "location_id")
     private Location location;
 
-    @OneToMany(targetEntity = ExerciseSession.class, fetch = LAZY, cascade = ALL, mappedBy = "workout")
-    private List<ExerciseSession> warmUp;
+    @OneToOne(targetEntity = ExerciseSession.class, fetch = LAZY, mappedBy = "workout")
+    private ExerciseSession warmUp;
 
     @OneToOne(targetEntity = ClimbingSession.class, fetch = LAZY)
     @JoinColumn(name = "id", referencedColumnName = "id")
     private ClimbingSession climbingSession;
 
-    @OneToMany(targetEntity = ExerciseSession.class, fetch = LAZY, cascade = ALL, mappedBy = "workout")
-    private List<ExerciseSession> coolDown;
+    @OneToOne(targetEntity = ExerciseSession.class, fetch = LAZY, mappedBy = "workout")
+    private ExerciseSession coolDown;
 
     private DifficultyLevel difficultyLevel;
 
     private String comment;
 
+    @ManyToOne(targetEntity = User.class, fetch = EAGER)
+    @JoinColumn(name = "username", nullable = false)
+    private User user;
+
+    public Workout(long id) {
+        this.id = id;
+        user = new User();
+    }
 }

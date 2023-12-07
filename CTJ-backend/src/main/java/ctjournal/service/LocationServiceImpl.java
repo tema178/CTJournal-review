@@ -20,7 +20,7 @@ public class LocationServiceImpl implements LocationService {
     }
 
     public List<Location> findAll(String name) {
-        User user = new User();
+        User user = new User(name);
         user.setUsername(name);
         return repository.findAllByUser(user);
     }

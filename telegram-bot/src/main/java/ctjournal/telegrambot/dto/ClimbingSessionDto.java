@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Collections;
 import java.util.List;
 
 @Setter
@@ -22,9 +23,10 @@ public class ClimbingSessionDto {
 
     private List<Route> routes;
 
-    private WorkoutDto workout;
+    private long workout;
 
-    public ClimbingSessionDto(long id) {
-        this.id = id;
+    public ClimbingSessionDto(long workout) {
+        this.workout = workout;
+        routes = Collections.emptyList();
     }
 }
