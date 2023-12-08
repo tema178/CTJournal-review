@@ -1,18 +1,18 @@
 package ctjournal.telegrambot.dto;
 
-import ctjournal.telegrambot.domain.DifficultyLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class WorkoutDto {
+public class WorkoutDto implements Serializable {
 
     private long id;
 
@@ -30,7 +30,7 @@ public class WorkoutDto {
 
     private long coolDown;
 
-    private DifficultyLevel difficultyLevel;
+    private byte efforts;
 
     private String comment;
 

@@ -50,7 +50,7 @@ public class Workout {
     @OneToOne(targetEntity = ExerciseSession.class, fetch = LAZY, mappedBy = "workout")
     private ExerciseSession coolDown;
 
-    private DifficultyLevel difficultyLevel;
+    private byte efforts;
 
     private String comment;
 

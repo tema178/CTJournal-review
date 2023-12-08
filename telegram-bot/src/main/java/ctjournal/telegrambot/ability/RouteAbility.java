@@ -5,7 +5,7 @@ import ctjournal.telegrambot.domain.DifficultyLevel;
 import ctjournal.telegrambot.domain.Route;
 import ctjournal.telegrambot.domain.SendStyle;
 import ctjournal.telegrambot.domain.Type;
-import ctjournal.telegrambot.domain.WorkoutState;
+import ctjournal.telegrambot.dto.WorkoutDto;
 import ctjournal.telegrambot.repository.RouteRepository;
 import ctjournal.telegrambot.repository.StatesRepository;
 import ctjournal.telegrambot.repository.WorkoutRepository;
@@ -31,7 +31,7 @@ import static ctjournal.telegrambot.domain.States.CLIMBING_SESSION_MENU;
 import static ctjournal.telegrambot.domain.States.MAIN_MENU;
 import static ctjournal.telegrambot.domain.States.ROUTE_MENU;
 import static ctjournal.telegrambot.domain.States.WAITING_ATTEMPTS;
-import static ctjournal.telegrambot.domain.States.WAITING_RAITING;
+import static ctjournal.telegrambot.domain.States.WAITING_RATING;
 import static ctjournal.telegrambot.domain.States.WAITING_REDPOINT_ATTEMPTS;
 import static ctjournal.telegrambot.domain.States.WAITING_ROUTE_COMMENT;
 import static ctjournal.telegrambot.domain.States.WAITING_ROUTE_NAME;
@@ -91,7 +91,7 @@ public class RouteAbility implements AbilityExtension {
         BiConsumer<BaseAbilityBot, Update> action = (bot, upd) -> {
             Long id = getChatId(upd);
             String name = upd.getMessage().getText();
-            WorkoutState workout = workoutRepository.findByUserId(id.toString());
+            WorkoutDto workout = workoutRepository.findByUserId(id.toString());
             Route route = service.create(name, new ClimbingSession(workout.getClimbingSession()), id.toString());
             routeRepository.save(id.toString(), route);
 
@@ -114,7 +114,7 @@ public class RouteAbility implements AbilityExtension {
     public Reply viewRoutes() {
         BiConsumer<BaseAbilityBot, Update> action = (bot, upd) -> {
             Long id = getChatId(upd);
-            WorkoutState workout = workoutRepository.findByUserId(id.toString());
+            WorkoutDto workout = workoutRepository.findByUserId(id.toString());
             List<Route> routes = service.getRoutes(workout.getClimbingSession(), id.toString());
             SendMessage sendMessage = new SendMessage();
             sendMessage.setText(RouteToStringTransformer.transform(routes));
@@ -134,7 +134,7 @@ public class RouteAbility implements AbilityExtension {
     public Reply editRoute() {
         BiConsumer<BaseAbilityBot, Update> action = (bot, upd) -> {
             Long id = getChatId(upd);
-            WorkoutState workout = workoutRepository.findByUserId(id.toString());
+            WorkoutDto workout = workoutRepository.findByUserId(id.toString());
             List<Route> routes = service.getRoutes(workout.getClimbingSession(), id.toString());
             String text;
             ReplyKeyboard replyMarkup;
@@ -286,7 +286,7 @@ public class RouteAbility implements AbilityExtension {
         return Reply.of(
                 (bot, upd) -> {
                     Long id = getChatId(upd);
-                    statesRepository.save(id.toString(), WAITING_RAITING);
+                    statesRepository.save(id.toString(), WAITING_RATING);
                     bot.silent().send("Введите оценку 1-5:", getChatId(upd));
                 },
                 upd -> upd.hasCallbackQuery() && upd.getCallbackQuery().getData().equals(EDIT_RATING));
@@ -317,7 +317,7 @@ public class RouteAbility implements AbilityExtension {
                 },
                 upd ->
                         upd.hasMessage()
-                                && statesRepository.findByUserId(getChatId(upd).toString()) == WAITING_RAITING);
+                                && statesRepository.findByUserId(getChatId(upd).toString()) == WAITING_RATING);
 
     }
 

@@ -38,6 +38,8 @@ public class KeyboardFactory {
     public static final String EDIT_ROUTE_NAME = "edit route name";
     public static final String SET_ROUTE = "set route";
     public static final String RETURN_TO_MAIN_MENU = "return to main menu";
+    public static final String EDIT_WORKOUT_COMMENT = "edit workout comment";
+    public static final String EDIT_WORKOUT_EFFORTS = "edit workout efforts";
 
     private KeyboardFactory() {
     }
@@ -57,7 +59,7 @@ public class KeyboardFactory {
                 .build();
         InlineKeyboardButton comment = InlineKeyboardButton.builder()
                 .text("Добавить комментарий")
-                .callbackData("add comment")
+                .callbackData(EDIT_WORKOUT_COMMENT)
                 .build();
         InlineKeyboardButton changeLocation = InlineKeyboardButton.builder()
                 .text("Изменить место")
@@ -65,7 +67,7 @@ public class KeyboardFactory {
                 .build();
         InlineKeyboardButton addRate = InlineKeyboardButton.builder()
                 .text("Добавить оценку")
-                .callbackData("add rate")
+                .callbackData(EDIT_WORKOUT_EFFORTS)
                 .build();
         List<List<InlineKeyboardButton>> matrix = new ArrayList<>();
         matrix.add(List.of(warmUp));

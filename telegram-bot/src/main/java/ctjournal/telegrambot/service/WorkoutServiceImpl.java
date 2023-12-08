@@ -2,7 +2,6 @@ package ctjournal.telegrambot.service;
 
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ctjournal.telegrambot.domain.WorkoutState;
 import ctjournal.telegrambot.dto.WorkoutDto;
 import ctjournal.telegrambot.repository.TokensHashRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,13 +23,13 @@ public class WorkoutServiceImpl implements WorkoutService {
     private final TokensHashRepository tokensHashRepository;
 
     @Override
-    public WorkoutDto createWorkout(String id) {
+    public WorkoutDto create(String id) {
         WorkoutDto workout = new WorkoutDto(Date.valueOf(LocalDate.now()), System.currentTimeMillis());
-        return updateWorkout(workout, id);
+        return update(workout, id);
     }
 
     @Override
-    public WorkoutDto updateWorkout(WorkoutDto workout, String id) {
+    public WorkoutDto update(WorkoutDto workout, String id) {
         try {
             RestTemplate template = new RestTemplate();
             var headers = new HttpHeaders();
@@ -60,16 +59,16 @@ public class WorkoutServiceImpl implements WorkoutService {
     }
 
     @Override
-    public WorkoutDto updateLocation(WorkoutState workoutState, String id) {
+    public WorkoutDto updateLocation(WorkoutDto workoutState, String id) {
         WorkoutDto workoutDto = findById(workoutState.getId(), id);
         workoutDto.setLocation(workoutState.getId());
-        return updateWorkout(workoutDto, id);
+        return update(workoutDto, id);
     }
 
     @Override
-    public WorkoutDto updateClimbingSession(WorkoutState workoutState, String id) {
+    public WorkoutDto updateClimbingSession(WorkoutDto workoutState, String id) {
         WorkoutDto workoutDto = findById(workoutState.getId(), id);
         workoutDto.setClimbingSession(workoutState.getClimbingSession());
-        return updateWorkout(workoutDto, id);
+        return update(workoutDto, id);
     }
 }

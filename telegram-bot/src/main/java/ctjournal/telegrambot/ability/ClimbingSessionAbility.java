@@ -1,6 +1,6 @@
 package ctjournal.telegrambot.ability;
 
-import ctjournal.telegrambot.domain.WorkoutState;
+import ctjournal.telegrambot.dto.WorkoutDto;
 import ctjournal.telegrambot.dto.ClimbingSessionDto;
 import ctjournal.telegrambot.repository.WorkoutRepository;
 import ctjournal.telegrambot.service.ClimbingSessionService;
@@ -39,7 +39,7 @@ public class ClimbingSessionAbility implements AbilityExtension {
     public Reply editClimbingSession() {
         BiConsumer<BaseAbilityBot, Update> action = (bot, upd) -> {
             Long id = getChatId(upd);
-            WorkoutState workout = workoutRepository.findByUserId(id.toString());
+            WorkoutDto workout = workoutRepository.findByUserId(id.toString());
             if (workout.getClimbingSession() == 0) {
                 ClimbingSessionDto climbingSession = service.create(workout, id.toString());
                 workout.setClimbingSession(climbingSession.getId());

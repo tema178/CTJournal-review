@@ -1,7 +1,7 @@
 package ctjournal.telegrambot.ability;
 
 import ctjournal.telegrambot.domain.Location;
-import ctjournal.telegrambot.domain.WorkoutState;
+import ctjournal.telegrambot.dto.WorkoutDto;
 import ctjournal.telegrambot.repository.StatesRepository;
 import ctjournal.telegrambot.repository.WorkoutRepository;
 import ctjournal.telegrambot.service.LocationService;
@@ -52,9 +52,9 @@ public class LocationAbility implements AbilityExtension {
             statesRepository.save(id.toString(), CREATING_LOCATION);
             String place = upd.getMessage().getText();
             long location = locationService.createLocation(place, id.toString());
-            WorkoutState workout = workoutRepository.findByUserId(id.toString());
+            WorkoutDto workout = workoutRepository.findByUserId(id.toString());
             if (workout == null) {
-                workout = new WorkoutState();
+                workout = new WorkoutDto();
             }
             workout.setLocation(location);
             workoutRepository.save(id.toString(), workout);
@@ -112,7 +112,7 @@ public class LocationAbility implements AbilityExtension {
                 (bot, upd) -> {
                     long location = Long.parseLong(upd.getCallbackQuery().getData().substring(SET_LOCATION.length()));
                     Long id = getChatId(upd);
-                    WorkoutState workout = workoutRepository.findByUserId(id.toString());
+                    WorkoutDto workout = workoutRepository.findByUserId(id.toString());
                     workout.setLocation(location);
                     workoutService.updateLocation(workout, id.toString());
                     SendMessage sendMessage = new SendMessage();

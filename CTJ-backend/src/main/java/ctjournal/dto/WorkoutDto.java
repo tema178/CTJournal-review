@@ -1,7 +1,6 @@
 package ctjournal.dto;
 
 import ctjournal.domain.ClimbingSession;
-import ctjournal.domain.DifficultyLevel;
 import ctjournal.domain.ExerciseSession;
 import ctjournal.domain.Location;
 import ctjournal.domain.User;
@@ -37,7 +36,7 @@ public class WorkoutDto {
 
     private long coolDown;
 
-    private DifficultyLevel difficultyLevel;
+    private byte efforts;
 
     private String comment;
 
@@ -49,18 +48,18 @@ public class WorkoutDto {
         ClimbingSession session = climbingSession == 0 ? null : new ClimbingSession(climbingSession);
         ExerciseSession coolDown1 = coolDown == 0 ? null : new ExerciseSession(coolDown);
         return new Workout(id, date, startTime, endTime, location1, warmUp1,
-                session, coolDown1, difficultyLevel, comment, new User(user));
+                session, coolDown1, efforts, comment, new User(user));
     }
 
     public static WorkoutDto toDto(Workout workout) {
-        long locationId = workout.getLocation() == null ? 0 :workout.getLocation().getId();
-        long warmUpId = workout.getWarmUp() == null ? 0 :workout.getWarmUp().getId();
-        long climbingSessionId = workout.getClimbingSession() == null ? 0 :workout.getClimbingSession().getId();
-        long coolDownId = workout.getCoolDown() == null ? 0 :workout.getCoolDown().getId();
+        long locationId = workout.getLocation() == null ? 0 : workout.getLocation().getId();
+        long warmUpId = workout.getWarmUp() == null ? 0 : workout.getWarmUp().getId();
+        long climbingSessionId = workout.getClimbingSession() == null ? 0 : workout.getClimbingSession().getId();
+        long coolDownId = workout.getCoolDown() == null ? 0 : workout.getCoolDown().getId();
         String userName = workout.getUser() == null ? null : workout.getUser().getUsername();
         return new WorkoutDto(workout.getId(), workout.getDate(), workout.getStartTime(), workout.getEndTime(),
                 locationId, warmUpId, climbingSessionId, coolDownId,
-                workout.getDifficultyLevel(), workout.getComment(), userName);
+                workout.getEfforts(), workout.getComment(), userName);
     }
 
     public static List<WorkoutDto> toDto(List<Workout> workouts) {

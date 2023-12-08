@@ -2,7 +2,7 @@ package ctjournal.telegrambot.service;
 
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ctjournal.telegrambot.domain.WorkoutState;
+import ctjournal.telegrambot.dto.WorkoutDto;
 import ctjournal.telegrambot.dto.ClimbingSessionDto;
 import ctjournal.telegrambot.repository.TokensHashRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class ClimbingSessionServiceImpl implements ClimbingSessionService {
     private TokensHashRepository tokensHashRepository;
 
     @Override
-    public ClimbingSessionDto create(WorkoutState workout, String id) {
+    public ClimbingSessionDto create(WorkoutDto workout, String id) {
         return update(new ClimbingSessionDto(workout.getId()), id);
     }
 

@@ -1,9 +1,9 @@
 package ctjournal.telegrambot.repository;
 
-import ctjournal.telegrambot.domain.WorkoutState;
+import ctjournal.telegrambot.dto.WorkoutDto;
 
 public interface WorkoutRepository {
-    void save(String userId, WorkoutState workoutState);
+    void save(String userId, WorkoutDto workoutState);
 
-    WorkoutState findByUserId(String userId);
+    WorkoutDto findByUserId(String userId);
 }

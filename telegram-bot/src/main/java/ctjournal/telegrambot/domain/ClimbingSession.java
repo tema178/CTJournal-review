@@ -28,7 +28,7 @@ public class ClimbingSession {
         this.id = id;
     }
 
-    public ClimbingSession(WorkoutState workoutState) {
+    public ClimbingSession(WorkoutDto workoutState) {
         this.workout = new WorkoutDto(workoutState.getId());
     }
 }
