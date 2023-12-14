@@ -1,0 +1,6 @@
+bot:
+  name: ClimbingJournalBot
+  creatorId: 536161023
+
+server:
+  port: 9002
