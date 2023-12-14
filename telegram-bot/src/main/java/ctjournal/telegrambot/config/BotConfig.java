@@ -2,20 +2,18 @@ package ctjournal.telegrambot.config;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
-@Configuration
+@Component
 @Data
-@PropertySource("application.yml")
+@ConfigurationProperties(prefix = "bot")
 public class BotConfig {
 
-    @Value("${bot.name}")
-    String botName;
+    private String name;
 
     @Value("${token}")
-    String token;
+    private String token;
 
-    @Value("${bot.creator.id}")
-    long creatorId;
+    private long creatorId;
 }

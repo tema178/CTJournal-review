@@ -27,7 +27,7 @@ public class TelegramBot extends AbilityBot {
                        @Lazy RouteAbility routeAbility,
                        @Lazy AuthorizationAbility authorizationAbility,
                        @Lazy GradeAbility gradeAbility) {
-        super(botConfig.getToken(), botConfig.getBotName(), context);
+        super(botConfig.getToken(), botConfig.getName(), context);
         this.botConfig = botConfig;
         addExtensions(locationAbility, workoutAbility, climbingSessionAbility, routeAbility, gradeAbility, authorizationAbility);
     }
